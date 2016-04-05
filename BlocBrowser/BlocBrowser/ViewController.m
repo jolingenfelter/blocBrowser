@@ -131,12 +131,16 @@
     
     NSString *URLString = textField.text;
     
+    if ([URLString containsString:@" "]) {
+        NSString *URLsearchString = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        URLString = [NSString stringWithFormat:@"google.com/search?q=%@", URLsearchString];
+
+    }
+    
     NSURL *URL = [NSURL URLWithString:URLString];
-    NSString *searchStringName = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    NSURL *searchURL= [NSURL URLWithString: [NSString stringWithFormat:@"google.com/search?q=%@", searchStringName]];
     
     
-if (!URL.scheme) {
+    if (!URL.scheme) {
         // The user didn't type http: or https:
         
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
