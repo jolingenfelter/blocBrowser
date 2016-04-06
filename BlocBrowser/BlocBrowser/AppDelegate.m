@@ -27,6 +27,18 @@
     
     [self.window makeKeyAndVisible];
     
+    UIAlertController *welcome = [UIAlertController alertControllerWithTitle:@"" message:@"Welcome!" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+    
+    [welcome addAction:okAction];
+
+    
+    [self.window.rootViewController presentViewController:welcome animated:YES completion:nil];
+    
+    
+    
+
     return YES;
 }
 
@@ -56,6 +68,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
