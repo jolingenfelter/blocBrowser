@@ -233,19 +233,6 @@
 }
 
 
-- (void) applicationWillResignActive: (UIApplication *) application {
-    
-    //Sent when the application is about to move from active to inactive state.
-    
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates.  Games should use this method to pause the game.
-    
-    UINavigationController *navigationVC = (UINavigationController *)self.window.rootViewController;
-    
-    ViewController *browserVC = [[navigationVC viewControllers] firstObject];
-    
-    [browserVC resetWebView];
-   
-}
 
 
 @end
