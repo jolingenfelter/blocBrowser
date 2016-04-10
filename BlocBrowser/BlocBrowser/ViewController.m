@@ -63,6 +63,7 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -79,6 +80,7 @@
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
     self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    
 }
 
 #pragma mark - UITextFieldDelegate
@@ -164,6 +166,7 @@
     }
 }
 
+
 #pragma mark - Miscellaneous
 
 - (void) updateButtonsAndTitle {
@@ -187,7 +190,6 @@
     [self.awesomeToolbar setEnabled:[self.webView isLoading] forButtonWithTitle:kWebBrowserStopString];
     [self.awesomeToolbar setEnabled:![self.webView isLoading] && self.webView.URL forButtonWithTitle:kWebBrowserRefreshString];
 }
-
 
 #pragma mark - resetWebView
 
