@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, strong) NSArray *buttons;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 
 @end
 
@@ -46,8 +48,8 @@
             NSString *titleForThisButton = [self.currentTitles objectAtIndex: currentTitleIndex];
             UIColor *colorForThisButton = [self.colors objectAtIndex:currentTitleIndex];
             
-            [button setTitle:titleForThisButton forState:UIControlStateSelected];
-            [button setTintColor:colorForThisButton];
+            [button setTitle:titleForThisButton forState:UIControlStateNormal];
+            [button setBackgroundColor:colorForThisButton];
             button.titleLabel.font = [UIFont systemFontOfSize:10];
             button.titleLabel.textColor = [UIColor whiteColor];
             
@@ -65,6 +67,13 @@
         
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         [self addGestureRecognizer:self.panGesture];
+        
+        self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
+        [self addGestureRecognizer:self.pinchGesture];
+        
+        self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
+        [self addGestureRecognizer:self.longPressGesture];
+                             
         
         
     }
@@ -134,6 +143,58 @@
         
     }
 }
+
+
+- (void) pinchFired: (UIPinchGestureRecognizer *) recognizer {
+    
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat scale = [recognizer scale];
+        NSLog(@"pinched: %f", scale);
+        
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPinchWithScale:)]) {
+            
+            [self.delegate floatingToolbar:self didTryToPinchWithScale:scale];
+        }
+        
+        [recognizer setScale: 1.0];
+        
+    }
+}
+
+- (void) longPressFired: (UILongPressGestureRecognizer *) recognizer {
+    
+    NSMutableArray *mutableColorsArray = [@[[UIColor colorWithRed:199/255.0 green:158/255.0 blue:203/255.0 alpha:1],
+                                           [UIColor colorWithRed:255/255.0 green:105/255.0 blue:97/255.0 alpha:1],
+                                           [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
+                                           [UIColor colorWithRed:255/255.0 green:179/255.0 blue:71/255.0 alpha:1]] mutableCopy];
+    
+    
+    
+    
+    
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        
+        UIColor *lastColor = [mutableColorsArray lastObject];
+        [mutableColorsArray removeLastObject];
+        [mutableColorsArray insertObject:lastColor atIndex:0];
+        
+        self.colors = mutableColorsArray;
+        
+        for (UIButton *button in self.buttons) {
+            
+            NSUInteger currentColorIndex = [mutableColorsArray indexOfObject: button];
+            UIColor *newColorForButton = [mutableColorsArray objectAtIndex:currentColorIndex];
+            
+            [button setBackgroundColor:newColorForButton];
+        }
+    }
+}
+
+
+
+ 
+            
 
 
 #pragma mark - Button Enabling

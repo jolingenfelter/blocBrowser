@@ -18,6 +18,9 @@
 
 - (void) floatingToolbar: (AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset;
 
+- (void) floatingToolbar: (AwesomeFloatingToolbar *) toolbar didTryToPinchWithScale: (CGFloat)scale;
+
+
 @end
 
 @interface AwesomeFloatingToolbar : UIView
