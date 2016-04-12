@@ -163,14 +163,7 @@
 
 - (void) longPressFired: (UILongPressGestureRecognizer *) recognizer {
     
-    NSMutableArray *mutableColorsArray = [@[[UIColor colorWithRed:199/255.0 green:158/255.0 blue:203/255.0 alpha:1],
-                                           [UIColor colorWithRed:255/255.0 green:105/255.0 blue:97/255.0 alpha:1],
-                                           [UIColor colorWithRed:222/255.0 green:165/255.0 blue:164/255.0 alpha:1],
-                                           [UIColor colorWithRed:255/255.0 green:179/255.0 blue:71/255.0 alpha:1]] mutableCopy];
-    
-    
-    
-    
+    NSMutableArray *mutableColorsArray = [self.colors mutableCopy];
     
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -179,11 +172,12 @@
         [mutableColorsArray removeLastObject];
         [mutableColorsArray insertObject:lastColor atIndex:0];
         
+        
         self.colors = mutableColorsArray;
         
         for (UIButton *button in self.buttons) {
             
-            NSUInteger currentColorIndex = [mutableColorsArray indexOfObject: button];
+            NSUInteger currentColorIndex = [self.buttons indexOfObject: button];
             UIColor *newColorForButton = [mutableColorsArray objectAtIndex:currentColorIndex];
             
             [button setBackgroundColor:newColorForButton];

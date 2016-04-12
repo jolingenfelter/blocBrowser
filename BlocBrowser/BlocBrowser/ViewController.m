@@ -62,6 +62,7 @@
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -79,7 +80,7 @@
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+
     
 }
 
@@ -170,9 +171,8 @@
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithScale:(CGFloat)scale {
    
     CGPoint startingPoint = toolbar.frame.origin;
-    CGPoint newPoint = CGPointMake(startingPoint.x * scale, startingPoint.y * scale);
     
-    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetWidth(toolbar.frame));
+    CGRect potentialNewFrame = CGRectMake(startingPoint.x, startingPoint.y , startingPoint.x * scale, startingPoint.y * scale);
                                           
     if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
         toolbar.frame = potentialNewFrame;
