@@ -53,15 +53,21 @@
             button.titleLabel.font = [UIFont systemFontOfSize:10];
             button.titleLabel.textColor = [UIColor whiteColor];
             
+            [button addTarget: self action:@selector(tapFired:) forControlEvents: UIControlEventTouchUpInside];
+
+        
             [buttonsArray addObject:button];
+            
         
-        }
-        
+            }
+            
         self.buttons= buttonsArray;
         
         for (UIButton *thisButton in self.buttons) {
+            
             [self addSubview:thisButton];
-        }
+            
+            }
 
 
         
@@ -73,9 +79,8 @@
         
         self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
         [self addGestureRecognizer:self.longPressGesture];
-                             
         
-        
+
     }
     
     return self;
@@ -186,12 +191,16 @@
 }
 
 
-
- 
-            
-
+- (void) tapFired: (UIButton *) button {
+        
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didSelectButtonWithTitle:)]) {
+            [self.delegate floatingToolbar:self didSelectButtonWithTitle:button.titleLabel.text];
+        }
+    
+}
 
 #pragma mark - Button Enabling
+
 
 
 - (void) setEnabled:(BOOL)enabled forButtonWithTitle:(NSString *)title {
