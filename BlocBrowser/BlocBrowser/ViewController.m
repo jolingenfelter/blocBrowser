@@ -172,7 +172,7 @@
    
     CGPoint startingPoint = toolbar.frame.origin;
     
-    CGRect potentialNewFrame = CGRectMake(startingPoint.x, startingPoint.y , startingPoint.x * scale, startingPoint.y * scale);
+    CGRect potentialNewFrame = CGRectMake(startingPoint.x, startingPoint.y , CGRectGetWidth(toolbar.frame) * scale , CGRectGetWidth(toolbar.frame) * scale/4);
                                           
     if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
         toolbar.frame = potentialNewFrame;
